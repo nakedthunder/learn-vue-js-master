@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <app-header v-bind:propsdata="num"></app-header>
+        <app-content v-on:pass="deliverNum"></app-content>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        //등록한 컴포넌트 appHeader를 등록 
+        var appHeader = {
+            template : '<div>header</div>',
+            props : ['propsdata']
+        }
+        var appContent = {
+            template : '<div>content<button v-on:click="passNum">pass</button></div>', 
+            methods : {
+                //pass버튼의 이벤트 
+                passNum : function(){
+                    this.$emit('pass', 10); //pass이벤트를 넘기면서 
+                }
+            }
+        }
+
+        new Vue({
+            el : '#app',
+            //정의한 내용들의 값. str이라는 데이터 속성을 넣어줌 
+            // data : {
+            //     str : 'hi'
+            // }
+            //그러나 components 등록 appHeader
+            components : {
+                'app-header' : appHeader,
+                'app-content' : appContent 
+            }, 
+            data : {
+                num : 0 
+            } , 
+            methods : {
+                //상위 컴포넌트 Root의 메서드를 추가 
+                //받은 값을 pass , 인자 10이 넘어오면서 value로 정의
+                deliverNum : function(value){
+                    this.num = value; 
+                }
+            }
+
+        })
+    </script>
+</body>
+</html>

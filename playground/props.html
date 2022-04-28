@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!-- <app-Header v-bind:프롭스 속성 이름="상위 컴포넌트의 데이터 이름"></app-Header> -->
+        <app-Header v-bind:propsdata="message"></app-Header>
+        <app-content v-bind:propsdata="num"></app-content>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        var appHeader = {
+            //화면에 표시할 요소 
+            template : '<h1>{{propsdata}}</h1>',
+            props : ['propsdata']
+        }
+
+        //위에 propsdata 이름과 동일하게 적어도 무관 (고유의 유효범위를 가지기 때문)
+        var appContent = {
+            template : '<div>{{propsdata}}</div>', 
+            props : ['propsdata']
+        }
+
+        //인스턴스는 뷰로 개발할 때 필수로 생성해야하는 코드 
+        //인스턴스를 생성하면 인스턴스 안에 어떤 ㅖㅑ
+
+        //:값이 바뀐 상태로 아래에 전달되고 화면에 반영되는것이 리액티비티이다. 
+        //props에 대해 알아봄 
+        new Vue({
+            el : '#app',
+            components : {
+                'app-header' : appHeader, 
+                'app-content' : appContent
+            },
+            //뷰의 반응성 (Reactivity)이 반영되는 데이터 속성
+            data : {
+                message : 'hi', 
+                num : 10 
+            }
+        })
+    </script>
+</body>
+</html>
