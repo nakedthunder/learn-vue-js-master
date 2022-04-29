@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <!--router-link : 앵커 태그로 변환 <a> = 앵커 태그 -->
+            <router-link to="/login">Login</router-link>
+            <router-link to="/main">Main</router-link>
+        </div>
+
+        <!--router-view : 페이지 url이 이동했을때 url에 따라 뿌려지는 영역
+            -vue인스턴스에 router인스턴스를 연결해야 사용할 수 있음 
+            -url 을 이동하면 해당하는 컴포넌트가 그려짐 
+        -->
+        <router-view></router-view>
+    </div>
+
+    <!--vue script, router script를 cdn방식으로 설치 & 순서가 중요함-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.5.3/dist/vue-router.js"></script>
+    <script>
+        //url : login 
+        var LoginComponent = {
+            template : '<div>login</div>'
+        }
+        //url : main 
+        var MainComponent = {
+            template : '<div>main</main>'
+        }
+        //vue and router 각각의 인스턴스 생성
+        //routes[]를 통해 속성을 정의함 -> 각 페이지의 정보들 (로그인, 메인 페이지들 정리)
+        var router = new VueRouter({
+            routes: [
+                {
+                    //속성을 정의함 key : value 형식 
+                    //path : 페이지의 url 
+                    path : '/login', 
+                    //component : 해당 url에서 표시될 컴포넌트 
+                    component : LoginComponent
+                }, 
+                {
+                    path : '/main', 
+                    component : MainComponent 
+                }
+            ]
+        });
+
+        //new Vue라는 인스턴스에 #app에다가 router도 여기에 유효 
+        new Vue({
+            el : '#app',
+            router : router 
+
+        });
+    </script>
+
+</body>
+</html>
